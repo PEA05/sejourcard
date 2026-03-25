@@ -545,8 +545,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
       </div>
     </div>
     <div style="text-align:center; margin-top:0;">
-      <a href="#produit"
-         onclick="event.preventDefault(); const produit = document.getElementById('produit'); if (produit) { produit.scrollIntoView({behavior:'smooth'}); setTimeout(() => { const showcase = document.querySelector('.cards-showcase'); if (showcase) showcase.scrollTo({left:0, behavior:'smooth'}); }, 800); }"
+      <a href="#nos-cartes"
          style="display:inline-flex; align-items:center; gap:8px; background:var(--black); color:var(--white); padding:16px 36px; border-radius:100px; font-size:16px; font-weight:600; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s; width:100%; justify-content:center; margin-top:24px;"
          onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.18)'"
          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
@@ -555,7 +554,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
     </div>
 
     <!-- B) Titre + grille des 5 cartes -->
-    <div class="product-header reveal" style="margin-top:80px;">
+    <div id="nos-cartes" class="product-header reveal" style="margin-top:80px;">
       <div class="section-label">Le produit</div>
       <h2>Une carte. Un scan. <em>Tout y est.</em></h2>
       <p class="section-sub">Choisissez votre matière. 100% personnalisables avec votre identité visuelle. Le profil digital est inclus dans chaque carte.</p>
