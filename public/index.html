@@ -328,6 +328,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
   .problem-text { order: 1; }
 
   /* 4. PROFIL DIGITAL — vidéo en haut, texte en bas */
+  #produit > div { padding-left: 24px !important; padding-right: 24px !important; }
   .phone-mockup-wrapper {
     display: flex !important;
     flex-direction: column !important;
@@ -339,6 +340,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
     order: 1;
     text-align: left;
     width: 100%;
+    padding: 0 4px !important;
   }
 
   /* 5. CARTES — carrousel horizontal */
@@ -522,7 +524,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
       </div>
     </div>
     <div style="text-align:center; margin-top:24px;">
-      <a href="#tarifs" style="display:inline-flex; align-items:center; gap:8px; background:var(--black); color:var(--white); padding:16px 36px; border-radius:100px; font-size:16px; font-weight:600; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.18)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">Commander ma SejourCard →</a>
+      <a href="#produit" onclick="document.querySelector('.cards-showcase').scrollTo({left:0, behavior:'smooth'}); return false;" style="display:inline-flex; align-items:center; gap:8px; background:var(--black); color:var(--white); padding:16px 36px; border-radius:100px; font-size:16px; font-weight:600; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.18)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">Commander ma SejourCard →</a>
     </div>
 
     <!-- B) Titre + grille des 5 cartes -->
@@ -633,6 +635,24 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
       </div>
 
     </div>
+
+    <!-- Hint swipe mobile -->
+    <div id="carousel-hint" style="display:none; justify-content:center; align-items:center; gap:8px; margin-top:12px; color:var(--gray); font-size:13px; font-weight:500;">
+      <span>Swipe</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </div>
+
+    <!-- Points de navigation mobile -->
+    <div id="carousel-dots" style="display:none; justify-content:center; gap:8px; margin-top:12px; padding-bottom:8px;">
+      <div class="cdot active" style="width:10px; height:10px; border-radius:50%; background:var(--black); transition:background 0.3s;"></div>
+      <div class="cdot" style="width:10px; height:10px; border-radius:50%; background:var(--border); transition:background 0.3s;"></div>
+      <div class="cdot" style="width:10px; height:10px; border-radius:50%; background:var(--border); transition:background 0.3s;"></div>
+      <div class="cdot" style="width:10px; height:10px; border-radius:50%; background:var(--border); transition:background 0.3s;"></div>
+      <div class="cdot" style="width:10px; height:10px; border-radius:50%; background:var(--border); transition:background 0.3s;"></div>
+    </div>
+
   </div>
 </section>
 
@@ -894,6 +914,41 @@ if (profilVideo) {
     dots.forEach((d, i) => d.style.opacity = i === current ? '1' : '0.4');
   }
   setInterval(() => goTo((current + 1) % total), 2500);
+})();
+
+// Carrousel cartes mobile
+(function() {
+  const showcase = document.querySelector('.cards-showcase');
+  const dots = document.querySelectorAll('.cdot');
+  const hint = document.getElementById('carousel-hint');
+  const dotsContainer = document.getElementById('carousel-dots');
+
+  if (!showcase || !dots.length) return;
+
+  function checkMobile() {
+    const isMobile = window.innerWidth <= 768;
+    if (hint) hint.style.display = isMobile ? 'flex' : 'none';
+    if (dotsContainer) dotsContainer.style.display = isMobile ? 'flex' : 'none';
+  }
+  checkMobile();
+  window.addEventListener('resize', checkMobile);
+
+  // Cacher la flèche hint après premier scroll
+  showcase.addEventListener('scroll', function hideHint() {
+    if (hint) hint.style.display = 'none';
+    showcase.removeEventListener('scroll', hideHint);
+  }, { once: true });
+
+  // Sync points avec scroll
+  showcase.addEventListener('scroll', () => {
+    const cards = showcase.querySelectorAll('.card-item');
+    if (!cards.length) return;
+    const cardWidth = cards[0].offsetWidth + 16;
+    const index = Math.round(showcase.scrollLeft / cardWidth);
+    dots.forEach((d, i) => {
+      d.style.background = i === index ? 'var(--black)' : 'var(--border)';
+    });
+  });
 })();
 </script>
 </body>
