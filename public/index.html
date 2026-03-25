@@ -22,8 +22,8 @@
   --accent-light: #EAF2EE;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Roboto', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+body { font-family: 'Roboto', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; max-width: 100%; }
 
 /* NAVBAR */
 nav {
@@ -303,13 +303,72 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
 /* RESPONSIVE */
 @media (max-width: 900px) { .cards-showcase { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 768px) {
+  /* BASE */
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   section { padding: 70px 20px; }
-  .hero { padding: 120px 20px 70px; }
-  .problem-inner { grid-template-columns: 1fr; gap: 40px; }
-  .cards-showcase { grid-template-columns: repeat(2, 1fr); }
-  .features-grid { grid-template-columns: 1fr; }
+
+  /* 1. HERO — alignement gauche */
+  .hero { text-align: left; padding: 100px 20px 60px; }
+  .hero-ctas { justify-content: flex-start; }
+  .hero-trust { justify-content: flex-start; }
+  .hero-badge { margin-left: 0; }
+
+  /* 2. OVERFLOW */
+  .ticker-section { overflow: hidden; }
+  .features-grid { grid-template-columns: 1fr; overflow: hidden; }
+
+  /* 3. PROBLÈME — carrousel en haut, texte en bas */
+  .problem-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+  .problem-visual { order: -1; }
+  .problem-text { order: 1; }
+
+  /* 4. PROFIL DIGITAL — vidéo en haut, texte en bas */
+  .phone-mockup-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px !important;
+    align-items: center !important;
+  }
+  .phone-mockup-wrapper > div:last-child { order: -1; }
+  .phone-mockup-wrapper > div:first-child {
+    order: 1;
+    text-align: left;
+    width: 100%;
+  }
+
+  /* 5. CARTES — carrousel horizontal */
+  .cards-showcase {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 16px !important;
+    padding: 0 20px 20px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .cards-showcase::-webkit-scrollbar { display: none; }
+  .cards-showcase .card-item {
+    min-width: 85vw !important;
+    max-width: 85vw !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+  }
+
+  /* 6. SECTION PRODUIT — padding réduit */
+  #produit { padding: 60px 0 !important; }
+  .product-header { padding: 0 20px; }
+
+  /* 7. COMPARATIF — scroll horizontal */
+  .compare-section { overflow-x: auto; }
+  .compare-table { min-width: 500px; }
+
+  /* DIVERS */
   .steps-grid { grid-template-columns: 1fr; }
   .steps-grid::before { display: none; }
   .reviews-grid { grid-template-columns: 1fr; }
