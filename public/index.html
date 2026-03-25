@@ -544,8 +544,14 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
         <div style="font-size:14px; color:var(--gray); line-height:1.5;">Si vous n'êtes pas satisfait, quelle qu'en soit la raison, nous vous remboursons intégralement. Sans condition, sans question.</div>
       </div>
     </div>
-    <div style="text-align:center; margin-top:24px;">
-      <a href="#produit" onclick="const produit = document.getElementById('produit'); const showcase = document.querySelector('.cards-showcase'); if (produit) produit.scrollIntoView({behavior:'smooth'}); if (showcase) setTimeout(() => showcase.scrollTo({left:0, behavior:'smooth'}), 600); return false;" style="display:inline-flex; align-items:center; gap:8px; background:var(--black); color:var(--white); padding:16px 36px; border-radius:100px; font-size:16px; font-weight:600; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.18)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">Commander ma SejourCard →</a>
+    <div style="text-align:center; margin-top:0;">
+      <a href="#produit"
+         onclick="event.preventDefault(); const produit = document.getElementById('produit'); if (produit) { produit.scrollIntoView({behavior:'smooth'}); setTimeout(() => { const showcase = document.querySelector('.cards-showcase'); if (showcase) showcase.scrollTo({left:0, behavior:'smooth'}); }, 800); }"
+         style="display:inline-flex; align-items:center; gap:8px; background:var(--black); color:var(--white); padding:16px 36px; border-radius:100px; font-size:16px; font-weight:600; text-decoration:none; transition:transform 0.2s, box-shadow 0.2s; width:100%; justify-content:center; margin-top:24px;"
+         onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.18)'"
+         onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">
+        Commander ma SejourCard →
+      </a>
     </div>
 
     <!-- B) Titre + grille des 5 cartes -->
