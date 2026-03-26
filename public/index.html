@@ -529,16 +529,7 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
       <div style="display:flex; justify-content:center; align-items:center; flex-direction:column;">
         <div class="phone-frame">
           <div class="phone-screen">
-            <video
-              id="profil-video"
-              src="video-profil.mp4"
-              muted
-              loop
-              playsinline
-              preload="auto"
-              poster="carte-pvc-blanche.png"
-              style="width:100%; height:100%; object-fit:cover; display:block; border-radius:24px;"
-            ></video>
+            <video id="profil-video" src="video-profil.mp4" muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block; border-radius:24px;"></video>
           </div>
         </div>
         <p class="phone-label">Ce que voient vos voyageurs ↑</p>
@@ -925,26 +916,16 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 const profilVideo = document.getElementById('profil-video');
 if (profilVideo) {
-  // Forcer le chargement
-  profilVideo.load();
-
-  // Autoplay au scroll
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        profilVideo.play().catch(() => {});
+        profilVideo.play();
       } else {
         profilVideo.pause();
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.3 });
   videoObserver.observe(profilVideo);
-
-  // Fallback touch sur Android
-  document.addEventListener('touchstart', function startVideo() {
-    profilVideo.play().catch(() => {});
-    document.removeEventListener('touchstart', startVideo);
-  }, { once: true });
 }
 // Carrousel automatique
 (function() {
